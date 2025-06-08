@@ -20,12 +20,33 @@
             color: #333;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .background-logo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.1;
+            background-image: url('vioverse-logo.png');
+            background-size: 80vw auto;
+            background-position: center 20%;
+            background-repeat: no-repeat;
+            mask: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0) 100%);
+            -webkit-mask: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0) 100%);
         }
         
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
+            position: relative;
+            z-index: 1;
         }
         
         .header {
@@ -36,35 +57,15 @@
         }
         
         .logo {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 30px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        
-        .logo img {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
+            display: none;
         }
         
         .header h1 {
-            font-size: 4rem;
-            margin-bottom: 15px;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            display: none;
         }
         
         .tagline {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            opacity: 0.95;
-            font-style: italic;
+            display: none;
         }
         
         .subtitle {
@@ -72,6 +73,7 @@
             opacity: 0.9;
             max-width: 800px;
             margin: 0 auto;
+            color: white;
         }
         
         .demo-grid {
@@ -323,13 +325,9 @@
     </style>
 </head>
 <body>
+    <div class="background-logo"></div>
     <div class="container">
         <header class="header">
-            <div class="logo">
-                <img src="vioverse-logo.png" alt="VioVerse Logo" onerror="this.style.display='none'">
-            </div>
-            <h1>VioVerse™</h1>
-            <p class="tagline">Every Violation Has Gravity</p>
             <p class="subtitle">Revolutionary FCRA violation detection platform combining AI-powered document processing with legal expertise to automatically identify credit report violations and generate court-ready evidence packages.</p>
         </header>
 
