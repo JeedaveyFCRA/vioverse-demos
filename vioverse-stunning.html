@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VioVerse™ - Legal Intelligence Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0052FF;
+            --primary-light: #4785FF;
+            --accent: #00FFA3;
+            --accent-dark: #00CC82;
+            --critical: #FF4757;
+            --warning: #FFA726;
+            --bg-main: #0A0B0F;
+            --bg-card: #141822;
+            --bg-elevated: #1E2235;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A8B2D1;
+            --text-muted: #6B7785;
+            --border: #2A2F3A;
+            --glow: rgba(0, 82, 255, 0.3);
+            --glow-accent: rgba(0, 255, 163, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated particle background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 82, 255, 0.08) 0%, transparent 30%),
+                        radial-gradient(circle at 80% 20%, rgba(0, 255, 163, 0.06) 0%, transparent 30%),
+                        radial-gradient(circle at 40% 80%, rgba(255, 71, 87, 0.04) 0%, transparent 30%);
+            animation: particleFloat 25s ease-in-out infinite;
+        }
+
+        .particles::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.1), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(0, 255, 163, 0.2), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(0, 82, 255, 0.2), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255, 71, 87, 0.1), transparent);
+            background-repeat: repeat;
+            background-size: 150px 150px;
+            animation: particleMove 20s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-20px, -30px) rotate(90deg); }
+            50% { transform: translate(30px, -20px) rotate(180deg); }
+            75% { transform: translate(-10px, 20px) rotate(270deg); }
+        }
+
+        @keyframes particleMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-150px, -150px); }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 11, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .nav-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.5s ease;
+        }
+
+        .logo:hover::after {
+            width: 100%;
+        }
+
+        .nav-pills {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-pill {
+            padding: 0.5rem 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-pill:hover {
+            background: rgba(0, 82, 255, 0.1);
+            border-color: var(--primary);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 82, 255, 0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 2rem 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(0, 255, 163, 0.1);
+            border: 1px solid rgba(0, 255, 163, 0.3);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 5px rgba(0, 255, 163, 0.2); }
+            to { box-shadow: 0 0 20px rgba(0, 255, 163, 0.4), 0 0 30px rgba(0, 255, 163, 0.2); }
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, #A8B2D1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Metrics Grid */
+        .metrics {
+            max-width: 1400px;
+            margin: 0 auto 120px;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .metric {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .metric::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .metric:hover::before {
+            left: 100%;
+        }
+
+        .metric:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 82, 255, 0.15);
+        }
+
+        .metric-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .metric:hover .metric-icon {
+            transform: scale(1.1) rotateY(180deg);
+        }
+
+        .metric-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Action Cards */
+        .actions {
+            max-width: 1400px;
+            margin: 0 auto 120px;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .action {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-elevated) 100%);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            group: hover;
+        }
+
+        .action::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 82, 255, 0.05) 0%, rgba(0, 255, 163, 0.02) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .action:hover::before {
+            opacity: 1;
+        }
+
+        .action:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 25px 50px rgba(0, 82, 255, 0.2);
+        }
+
+        .action-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .action:hover .action-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 10px 20px var(--glow);
+        }
+
+        .action-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .action-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .action-arrow {
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: auto;
+            transition: all 0.3s ease;
+            color: white;
+            font-size: 0.875rem;
+        }
+
+        .action:hover .action-arrow {
+            transform: translateX(5px);
+            background: var(--accent);
+        }
+
+        /* Evidence Section */
+        .evidence {
+            max-width: 1400px;
+            margin: 0 auto 120px;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .evidence-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .evidence-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent), var(--primary));
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .evidence-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .evidence-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 255, 163, 0.1);
+        }
+
+        .evidence-type {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .evidence-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .evidence-description {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-size: 0.9375rem;
+        }
+
+        /* Timeline */
+        .timeline-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .timeline {
+            position: relative;
+            margin-top: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 2rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary), var(--accent));
+            border-radius: 1px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 5rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 1.25rem;
+            top: 0.5rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--bg-main), 0 0 20px var(--glow-accent);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .timeline-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Custom SVG Icons */
+        .icon-svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-content {
+                padding: 1rem;
+            }
+            
+            .nav-pills {
+                display: none;
+            }
+            
+            .hero {
+                padding: 100px 1rem 60px;
+            }
+            
+            .metrics,
+            .actions,
+            .evidence {
+                padding: 0 1rem;
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::before {
+                left: 1rem;
+            }
+            
+            .timeline-item {
+                padding-left: 3rem;
+            }
+            
+            .timeline-dot {
+                left: 0.25rem;
+            }
+        }
+
+        /* Loading Animation */
+        @keyframes loading {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            animation: loading 0.6s ease-out forwards;
+        }
+
+        /* Hover Effects */
+        .magnetic {
+            transition: transform 0.2s ease;
+        }
+
+        .magnetic:hover {
+            transform: translate(var(--x, 0), var(--y, 0));
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="logo">VioVerse™</div>
+            <div class="nav-pills">
+                <div class="nav-pill">Live Analysis</div>
+                <div class="nav-pill">Intelligence Hub</div>
+                <div class="nav-pill">Export Center</div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="particles"></div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Legal Intelligence Platform</div>
+            <h1 class="hero-title">Revolutionary<br>FCRA Enforcement</h1>
+            <p class="hero-subtitle">Transform complex credit violations into compelling legal intelligence with AI-powered analysis, interactive evidence mapping, and litigation-ready documentation.</p>
+        </div>
+    </section>
+
+    <section class="metrics">
+        <div class="metric magnetic">
+            <div class="metric-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24">
+                    <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                </svg>
+            </div>
+            <span class="metric-number" data-target="247">0</span>
+            <div class="metric-label">Violations Detected</div>
+        </div>
+
+        <div class="metric magnetic">
+            <div class="metric-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/>
+                </svg>
+            </div>
+            <span class="metric-number" data-target="13">0</span>
+            <div class="metric-label">Offending Creditors</div>
+        </div>
+
+        <div class="metric magnetic">
+            <div class="metric-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24">
+                    <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 2 2h8c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 7h-2V5h2v4zm0 4h-2v-2h2v2z"/>
+                </svg>
+            </div>
+            <span class="metric-number" data-target="24">0</span>
+            <div class="metric-label">Reports Analyzed</div>
+        </div>
+
+        <div class="metric magnetic">
+            <div class="metric-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24">
+                    <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                </svg>
+            </div>
+            <span class="metric-number" data-target="85">0</span>
+            <div class="metric-label">Damages ($K)</div>
+        </div>
+    </section>
+
+    <section class="actions">
+        <div class="action magnetic">
+            <div class="action-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24" fill="white">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                </svg>
+            </div>
+            <h3 class="action-title">Violation Intelligence</h3>
+            <p class="action-description">Interactive violation mapping across all credit reports with AI-powered severity classification and pattern recognition.</p>
+            <div class="action-arrow">→</div>
+        </div>
+
+        <div class="action magnetic">
+            <div class="action-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24" fill="white">
+                    <path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10 2 10 2 7.79 2 6 3.79 6 6h-.18C4.26 6 3 7.26 3 8.74L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8.74C21 7.26 19.74 6 18.26 6z"/>
+                </svg>
+            </div>
+            <h3 class="action-title">Evidence Canvas</h3>
+            <p class="action-description">Comprehensive timeline triggers, denial letters, and supporting documentation with smart categorization and search.</p>
+            <div class="action-arrow">→</div>
+        </div>
+
+        <div class="action magnetic">
+            <div class="action-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24" fill="white">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+            </div>
+            <h3 class="action-title">Legal Analysis</h3>
+            <p class="action-description">FCRA compliance analysis with automated legal classification, precedent matching, and litigation strategy recommendations.</p>
+            <div class="action-arrow">→</div>
+        </div>
+
+        <div class="action magnetic">
+            <div class="action-icon">
+                <svg class="icon-svg" viewBox="0 0 24 24" fill="white">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                </svg>
+            </div>
+            <h3 class="action-title">Impact Assessment</h3>
+            <p class="action-description">Quantified harm analysis with damage calculations, credit impact modeling, and opportunity cost assessments.</p>
+            <div class="action-arrow">→</div>
+        </div>
+    </section>
+
+    <section class="evidence">
+        <div class="section-header">
+            <h2 class="section-title">Evidence Intelligence</h2>
+            <p class="section-subtitle">Comprehensive documentation ecosystem with AI-powered categorization and legal significance scoring</p>
+        </div>
+
+        <div class="evidence-grid">
+            <div class="evidence-item magnetic">
+                <div class="evidence-type">Timeline Triggers</div>
+                <h4 class="evidence-title">Bankruptcy Discharge Letters</h4>
+                <p class="evidence-description">Legal discharge documentation establishing violation baseline dates and systematic reporting errors.</p>
+            </div>
+
+            <div class="evidence-item magnetic">
+                <div class="evidence-type">Financial Impact</div>
+                <h4 class="evidence-title">Mortgage Refinance Denial</h4>
+                <p class="evidence-description">Direct financial harm documentation with quantified damages and opportunity cost analysis.</p>
+            </div>
+
+            <div class="evidence-item magnetic">
+                <div class="evidence-type">Pattern Analysis</div>
+                <h4 class="evidence-title">Systemic Violations</h4>
+                <p class="evidence-description">Cross-bureau violation patterns indicating willful conduct and coordinated misreporting.</p>
+            </div>
+
+            <div class="evidence-item magnetic">
+                <div class="evidence-type">Internal Records</div>
+                <h4 class="evidence-title">Creditor Communications</h4>
+                <p class="evidence-description">Internal correspondence showing knowledge of errors and systematic failure to correct.</p>
+            </div>
+
+            <div class="evidence-item magnetic">
+                <div class="evidence-type">Bureau Documents</div>
+                <h4 class="evidence-title">Investigation Records</h4>
+                <p class="evidence-description">Bureau response patterns, investigation inadequacies, and compliance failures.</p>
+            </div>
+
+            <div class="evidence-item magnetic">
+                <div class="evidence-type">Credit Analysis</div>
+                <h4 class="evidence-title">Score Impact Study</h4>
+                <p class="evidence-description">100+ point credit score drop analysis with mathematical impact modeling and recovery projections.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="timeline-section">
+        <div class="section-header">
+            <h2 class="section-title">Case Timeline Intelligence</h2>
+            <p class="section-subtitle">AI-powered chronological analysis with legal milestone identification</p>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">2024.04.25</div>
+                <h4 class="timeline-title">Bankruptcy Discharge Granted</h4>
+                <p class="timeline-description">All consumer debts legally eliminated • Establishes baseline for FCRA violations • Creates legal duty for accurate reporting</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">2024.05.15</div>
+                <h4 class="timeline-title">Systematic Violations Begin</h4>
+                <p class="timeline-description">Initial post-discharge reports show continued misreporting across all three bureaus • Pattern establishment phase</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">2024.09.00</div>
+                <h4 class="timeline-title">Financial Harm Materialized</h4>
+                <p class="timeline-description">Mortgage refinance denied • 100+ point credit score impact • $85K+ opportunity cost • Direct causation established</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">2024.10.00</div>
+                <h4 class="timeline-title">Legal Intelligence Complete</h4>
+                <p class="timeline-description">247 violations documented • Systemic patterns identified • Willful conduct established • Case litigation-ready</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Initialize animations and interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate metric numbers
+            const metrics = document.querySelectorAll('[data-target]');
+            const animateNumbers = () => {
+                metrics.forEach(metric => {
+                    const target = parseInt(metric.dataset.target);
+                    const duration = 2000;
+                    const start = performance.now();
+                    
+                    const animate = (current) => {
+                        const elapsed = current - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const value = Math.floor(progress * target);
+                        metric.textContent = value;
+                        
+                        if (progress < 1) {
+                            requestAnimationFrame(animate);
+                        }
+                    };
+                    
+                    requestAnimationFrame(animate);
+                });
+            };
+
+            // Intersection Observer for animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                        if (entry.target.classList.contains('metric')) {
+                            animateNumbers();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            // Observe elements
+            document.querySelectorAll('.metric, .action, .evidence-item, .timeline-item').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Magnetic effect for cards
+            document.querySelectorAll('.magnetic').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
+                    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 20;
+                    
+                    card.style.setProperty('--x', `${x}px`);
+                    card.style.setProperty('--y', `${y}px`);
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.setProperty('--x', '0px');
+                    card.style.setProperty('--y', '0px');
+                });
+            });
+
+            // Smooth scroll for navigation
+            document.querySelectorAll('.nav-pill').forEach(pill => {
+                pill.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    // Add smooth scrolling logic here
+                });
+            });
+
+            // Enhanced hover effects
+            document.querySelectorAll('.action, .evidence-item').forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

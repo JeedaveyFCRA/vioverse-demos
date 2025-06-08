@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VioVerse™ - Legal Intelligence Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0066FF;
+            --primary-dark: #0052CC;
+            --secondary: #00D4AA;
+            --accent: #FF6B35;
+            --critical: #FF3366;
+            --warning: #FFB800;
+            --success: #00C851;
+            --bg-primary: #0A0E1A;
+            --bg-secondary: #131824;
+            --bg-tertiary: #1C2332;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A0AEC0;
+            --text-muted: #718096;
+            --border: #2D3748;
+            --border-light: #4A5568;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 102, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(0, 212, 170, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(255, 107, 53, 0.06) 0%, transparent 50%);
+            z-index: -1;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+
+        .header {
+            background: rgba(19, 24, 36, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-pill {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 0.5rem 1.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            backdrop-filter: blur(10px);
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .case-title {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .case-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .metric-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 102, 255, 0.1);
+        }
+
+        .metric-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .action-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            opacity: 0.1;
+            transition: width 0.3s ease;
+        }
+
+        .action-card:hover::before {
+            width: 100%;
+        }
+
+        .action-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 30px rgba(0, 102, 255, 0.15);
+        }
+
+        .action-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .action-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .action-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .violations-panel {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .panel-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .view-toggle {
+            display: flex;
+            background: var(--bg-tertiary);
+            border-radius: 50px;
+            padding: 0.25rem;
+        }
+
+        .toggle-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .toggle-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .creditor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .creditor-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .creditor-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .creditor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .creditor-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .severity-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .severity-critical {
+            background: rgba(255, 51, 102, 0.2);
+            color: var(--critical);
+            border: 1px solid rgba(255, 51, 102, 0.3);
+        }
+
+        .severity-high {
+            background: rgba(255, 184, 0, 0.2);
+            color: var(--warning);
+            border: 1px solid rgba(255, 184, 0, 0.3);
+        }
+
+        .severity-medium {
+            background: rgba(0, 102, 255, 0.2);
+            color: var(--primary);
+            border: 1px solid rgba(0, 102, 255, 0.3);
+        }
+
+        .violation-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .bureau-indicators {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .bureau-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary);
+            opacity: 0.3;
+            transition: all 0.3s ease;
+        }
+
+        .bureau-dot.active {
+            opacity: 1;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .evidence-section {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .evidence-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .evidence-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+        }
+
+        .evidence-card:hover {
+            border-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 212, 170, 0.1);
+        }
+
+        .evidence-type {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .evidence-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .evidence-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .timeline-section {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -0.5rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--bg-primary), 0 0 10px var(--primary);
+        }
+
+        .timeline-date {
+            font-size: 0.875rem;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-event {
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-details {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .case-title {
+                font-size: 2rem;
+            }
+            
+            .metrics-grid,
+            .action-grid,
+            .creditor-grid,
+            .evidence-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">VioVerse™</div>
+            <div class="nav-pill">Case Analysis • Live Intelligence</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="hero-section">
+            <h1 class="case-title">Legal Intelligence Platform</h1>
+            <p class="case-subtitle">Comprehensive FCRA violation analysis • Real-time evidence processing • Litigation-ready outputs</p>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <span class="metric-number">247</span>
+                <div class="metric-label">Total Violations Detected</div>
+            </div>
+            <div class="metric-card">
+                <span class="metric-number">13</span>
+                <div class="metric-label">Offending Creditors</div>
+            </div>
+            <div class="metric-card">
+                <span class="metric-number">24</span>
+                <div class="metric-label">Credit Reports Analyzed</div>
+            </div>
+            <div class="metric-card">
+                <span class="metric-number">$85K+</span>
+                <div class="metric-label">Estimated Damages</div>
+            </div>
+        </div>
+
+        <div class="action-grid">
+            <div class="action-card">
+                <div class="action-icon">📊</div>
+                <div class="action-title">Violation Analysis</div>
+                <div class="action-description">Interactive violation mapping across all credit reports with severity classification</div>
+            </div>
+            <div class="action-card">
+                <div class="action-icon">📁</div>
+                <div class="action-title">Evidence Canvas</div>
+                <div class="action-description">Timeline triggers, denial letters, and supporting documentation</div>
+            </div>
+            <div class="action-card">
+                <div class="action-icon">⚖️</div>
+                <div class="action-title">Legal Intelligence</div>
+                <div class="action-description">FCRA compliance analysis with litigation-ready summaries</div>
+            </div>
+            <div class="action-card">
+                <div class="action-icon">📈</div>
+                <div class="action-title">Impact Assessment</div>
+                <div class="action-description">Quantified harm analysis and damage calculations</div>
+            </div>
+        </div>
+
+        <div class="violations-panel">
+            <div class="panel-header">
+                <h2 class="panel-title">Violation Intelligence</h2>
+                <div class="view-toggle">
+                    <button class="toggle-btn active">Creditors</button>
+                    <button class="toggle-btn">Timeline</button>
+                    <button class="toggle-btn">Severity</button>
+                </div>
+            </div>
+
+            <div class="creditor-grid">
+                <div class="creditor-card">
+                    <div class="creditor-header">
+                        <div class="creditor-name">Ally Financial</div>
+                        <div class="severity-badge severity-critical">Critical</div>
+                    </div>
+                    <div class="violation-stats">
+                        <span>23 violations</span>
+                        <span>8 reports</span>
+                        <span>18 months</span>
+                    </div>
+                    <div class="bureau-indicators">
+                        <div class="bureau-dot active" title="Equifax"></div>
+                        <div class="bureau-dot active" title="Experian"></div>
+                        <div class="bureau-dot active" title="TransUnion"></div>
+                    </div>
+                </div>
+
+                <div class="creditor-card">
+                    <div class="creditor-header">
+                        <div class="creditor-name">Mariner Finance</div>
+                        <div class="severity-badge severity-high">High</div>
+                    </div>
+                    <div class="violation-stats">
+                        <span>19 violations</span>
+                        <span>6 reports</span>
+                        <span>14 months</span>
+                    </div>
+                    <div class="bureau-indicators">
+                        <div class="bureau-dot active" title="Equifax"></div>
+                        <div class="bureau-dot" title="Experian"></div>
+                        <div class="bureau-dot active" title="TransUnion"></div>
+                    </div>
+                </div>
+
+                <div class="creditor-card">
+                    <div class="creditor-header">
+                        <div class="creditor-name">Best Buy Citibank</div>
+                        <div class="severity-badge severity-high">High</div>
+                    </div>
+                    <div class="violation-stats">
+                        <span>17 violations</span>
+                        <span>7 reports</span>
+                        <span>16 months</span>
+                    </div>
+                    <div class="bureau-indicators">
+                        <div class="bureau-dot active" title="Equifax"></div>
+                        <div class="bureau-dot active" title="Experian"></div>
+                        <div class="bureau-dot active" title="TransUnion"></div>
+                    </div>
+                </div>
+
+                <div class="creditor-card">
+                    <div class="creditor-header">
+                        <div class="creditor-name">JPMorgan Chase</div>
+                        <div class="severity-badge severity-medium">Medium</div>
+                    </div>
+                    <div class="violation-stats">
+                        <span>12 violations</span>
+                        <span>5 reports</span>
+                        <span>12 months</span>
+                    </div>
+                    <div class="bureau-indicators">
+                        <div class="bureau-dot" title="Equifax"></div>
+                        <div class="bureau-dot active" title="Experian"></div>
+                        <div class="bureau-dot active" title="TransUnion"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="evidence-section">
+            <div class="panel-header">
+                <h2 class="panel-title">Evidence Canvas</h2>
+            </div>
+
+            <div class="evidence-grid">
+                <div class="evidence-card">
+                    <div class="evidence-type">Timeline Triggers</div>
+                    <div class="evidence-title">Bankruptcy Discharge Letters</div>
+                    <div class="evidence-description">Legal discharge documentation establishing violation baseline dates</div>
+                </div>
+
+                <div class="evidence-card">
+                    <div class="evidence-type">Denial Letters</div>
+                    <div class="evidence-title">Mortgage Refinance Denial</div>
+                    <div class="evidence-description">Direct financial harm documentation from credit misreporting</div>
+                </div>
+
+                <div class="evidence-card">
+                    <div class="evidence-type">Damaging Alerts</div>
+                    <div class="evidence-title">Systemic Pattern Evidence</div>
+                    <div class="evidence-description">Cross-bureau violation patterns indicating willful conduct</div>
+                </div>
+
+                <div class="evidence-card">
+                    <div class="evidence-type">Additional Evidence</div>
+                    <div class="evidence-title">Internal Communications</div>
+                    <div class="evidence-description">Creditor knowledge of reporting errors and failure to correct</div>
+                </div>
+
+                <div class="evidence-card">
+                    <div class="evidence-type">Bureau Documents</div>
+                    <div class="evidence-title">Investigation Records</div>
+                    <div class="evidence-description">Bureau response patterns and investigation inadequacies</div>
+                </div>
+
+                <div class="evidence-card">
+                    <div class="evidence-type">Financial Impact</div>
+                    <div class="evidence-title">Credit Score Analysis</div>
+                    <div class="evidence-description">100+ point drop quantification and opportunity cost calculations</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-section">
+            <div class="panel-header">
+                <h2 class="panel-title">Case Timeline Intelligence</h2>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">April 25, 2024</div>
+                    <div class="timeline-event">Bankruptcy Discharge Granted</div>
+                    <div class="timeline-details">All consumer debts legally eliminated • Establishes baseline for FCRA violations</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">May 15, 2024</div>
+                    <div class="timeline-event">First Post-Discharge Violations Detected</div>
+                    <div class="timeline-details">Initial credit reports show continued misreporting across all three bureaus</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">September 2024</div>
+                    <div class="timeline-event">Mortgage Refinance Denied</div>
+                    <div class="timeline-details">Direct financial harm • 100+ point credit score impact • $85K+ opportunity cost</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">October 2024</div>
+                    <div class="timeline-event">Comprehensive Analysis Complete</div>
+                    <div class="timeline-details">247 violations documented • Systemic patterns identified • Legal case prepared</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth interactions and modern behaviors
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle functionality
+            const toggleBtns = document.querySelectorAll('.toggle-btn');
+            toggleBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    toggleBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Card hover effects
+            const cards = document.querySelectorAll('.action-card, .evidence-card, .creditor-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Metric number animation
+            const metricNumbers = document.querySelectorAll('.metric-number');
+            metricNumbers.forEach(number => {
+                const finalValue = number.textContent;
+                if (!isNaN(parseInt(finalValue))) {
+                    animateNumber(number, parseInt(finalValue));
+                }
+            });
+
+            function animateNumber(element, target) {
+                let current = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        element.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        element.textContent = Math.floor(current);
+                    }
+                }, 30);
+            }
+        });
+    </script>
+</body>
+</html>

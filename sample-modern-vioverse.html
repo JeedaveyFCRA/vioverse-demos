@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VioVerse™ - Case Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: #1e293b;
+            line-height: 1.5;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #dc2626;
+        }
+
+        .breadcrumb {
+            background: #f1f5f9;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            color: #475569;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .case-header {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #dc2626;
+        }
+
+        .case-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .case-subtitle {
+            color: #64748b;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #dc2626;
+            display: block;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background: #dc2626;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #b91c1c;
+        }
+
+        .btn-secondary {
+            background: #f8fafc;
+            color: #475569;
+            border: 1px solid #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background: #f1f5f9;
+        }
+
+        .violations-summary {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+
+        .violation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .violation-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            background: #fafafa;
+        }
+
+        .violation-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .severity-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .severity-critical {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .severity-high {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .severity-medium {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .creditor-name {
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .bureau-tags {
+            display: flex;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .bureau-tag {
+            padding: 0.125rem 0.375rem;
+            background: #e5e7eb;
+            color: #374151;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+        }
+
+        .timeline-section {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-left: 3px solid #e2e8f0;
+            margin-left: 1rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: #dc2626;
+            border-radius: 50%;
+            position: absolute;
+            left: -7px;
+        }
+
+        .timeline-content {
+            margin-left: 1rem;
+        }
+
+        .timeline-date {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .timeline-text {
+            color: #374151;
+            margin-top: 0.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .action-buttons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">VioVerse™</div>
+            <div class="breadcrumb">
+                Case Review > John Smith > Overview
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="case-header">
+            <h1 class="case-title">John Smith v. Credit Reporting System</h1>
+            <p class="case-subtitle">Comprehensive FCRA violation analysis spanning 18 months across 3 bureaus</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-number">247</span>
+                <div class="stat-label">Total Violations</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">13</span>
+                <div class="stat-label">Offending Creditors</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">24</span>
+                <div class="stat-label">Credit Reports</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">$85,000+</span>
+                <div class="stat-label">Estimated Damages</div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="#" class="btn btn-primary">Review All Violations</a>
+            <a href="#" class="btn btn-secondary">View Evidence Canvas</a>
+            <a href="#" class="btn btn-secondary">Generate Report</a>
+            <a href="#" class="btn btn-secondary">Export Data</a>
+        </div>
+
+        <div class="violations-summary">
+            <h2 class="section-title">Critical Violations by Creditor</h2>
+            <div class="violation-grid">
+                <div class="violation-card">
+                    <div class="violation-header">
+                        <div class="creditor-name">Ally Financial</div>
+                        <div class="severity-badge severity-critical">Critical</div>
+                    </div>
+                    <div>23 violations across 8 reports</div>
+                    <div class="bureau-tags">
+                        <span class="bureau-tag">EQ</span>
+                        <span class="bureau-tag">EX</span>
+                        <span class="bureau-tag">TU</span>
+                    </div>
+                </div>
+
+                <div class="violation-card">
+                    <div class="violation-header">
+                        <div class="creditor-name">Mariner Finance</div>
+                        <div class="severity-badge severity-high">High</div>
+                    </div>
+                    <div>19 violations across 6 reports</div>
+                    <div class="bureau-tags">
+                        <span class="bureau-tag">EQ</span>
+                        <span class="bureau-tag">TU</span>
+                    </div>
+                </div>
+
+                <div class="violation-card">
+                    <div class="violation-header">
+                        <div class="creditor-name">Best Buy Citibank</div>
+                        <div class="severity-badge severity-high">High</div>
+                    </div>
+                    <div>17 violations across 7 reports</div>
+                    <div class="bureau-tags">
+                        <span class="bureau-tag">EQ</span>
+                        <span class="bureau-tag">EX</span>
+                        <span class="bureau-tag">TU</span>
+                    </div>
+                </div>
+
+                <div class="violation-card">
+                    <div class="violation-header">
+                        <div class="creditor-name">JPMorgan Chase</div>
+                        <div class="severity-badge severity-medium">Medium</div>
+                    </div>
+                    <div>12 violations across 5 reports</div>
+                    <div class="bureau-tags">
+                        <span class="bureau-tag">EX</span>
+                        <span class="bureau-tag">TU</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-section">
+            <h2 class="section-title">Case Timeline</h2>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">April 25, 2024</div>
+                    <div class="timeline-text">Bankruptcy discharge - All debts legally eliminated</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">May 15, 2024</div>
+                    <div class="timeline-text">First post-discharge credit reports show continued violations</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">September 2024</div>
+                    <div class="timeline-text">Mortgage refinance denied due to misreporting</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">October 2024</div>
+                    <div class="timeline-text">247 violations documented across all three bureaus</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

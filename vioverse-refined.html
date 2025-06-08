@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VioVerse™ - Where Justice Meets Innovation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Professional Base Colors */
+            --primary-blue: #0066CC;
+            --secondary-blue: #004499;
+            --accent-cyan: #00D4FF;
+            --accent-green: #00CC66;
+            --pure-white: #FFFFFF;
+            --soft-white: #FAFBFC;
+            --light-gray: #F5F6F8;
+            --medium-gray: #6B7280;
+            --dark-gray: #374151;
+            --deep-black: #111827;
+            
+            /* Subtle Gradients */
+            --gradient-primary: linear-gradient(135deg, #0066CC 0%, #00D4FF 100%);
+            --gradient-accent: linear-gradient(135deg, #00CC66 0%, #00D4FF 100%);
+            --gradient-subtle: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+            
+            /* Professional Shadows */
+            --shadow-soft: 0 4px 20px rgba(0, 102, 204, 0.08);
+            --shadow-medium: 0 8px 30px rgba(0, 102, 204, 0.12);
+            --shadow-strong: 0 20px 40px rgba(0, 102, 204, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--pure-white);
+            color: var(--deep-black);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.4;
+        }
+
+        /* Subtle Floating Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-shape {
+            position: absolute;
+            opacity: 0.03;
+            animation: float 25s infinite ease-in-out;
+        }
+
+        .shape-1 {
+            top: 10%;
+            left: 15%;
+            width: 120px;
+            height: 120px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            top: 70%;
+            right: 20%;
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-accent);
+            transform: rotate(45deg);
+            animation-delay: -8s;
+        }
+
+        .shape-3 {
+            bottom: 30%;
+            left: 70%;
+            width: 80px;
+            height: 80px;
+            background: var(--accent-cyan);
+            border-radius: 30%;
+            animation-delay: -15s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            25% { transform: translate(-50px, -30px) rotate(90deg) scale(1.1); }
+            50% { transform: translate(60px, -40px) rotate(180deg) scale(0.9); }
+            75% { transform: translate(-30px, 40px) rotate(270deg) scale(1.05); }
+        }
+
+        /* Navigation with Dropdowns */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 102, 204, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            height: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            position: relative;
+            font-weight: 500;
+            color: var(--dark-gray);
+            text-decoration: none;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .nav-item:hover {
+            color: var(--primary-blue);
+            background: var(--light-gray);
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-item:hover::after {
+            width: 80%;
+        }
+
+        /* Dropdown Menus */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--pure-white);
+            border: 1px solid rgba(0, 102, 204, 0.1);
+            border-radius: 12px;
+            padding: 1rem 0;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            color: var(--dark-gray);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-item:hover {
+            background: var(--light-gray);
+            color: var(--primary-blue);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: var(--gradient-subtle);
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 1200px;
+            padding: 0 2rem;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--pure-white);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50px;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 3rem;
+            animation: badgeBounce 3s ease-in-out infinite;
+            box-shadow: var(--shadow-soft);
+        }
+
+        @keyframes badgeBounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .hero-title {
+            font-family: 'Clash Display', sans-serif;
+            font-size: clamp(4rem, 12vw, 8rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            position: relative;
+            /* Fixed line-height to prevent descender cutoff */
+            padding-bottom: 0.2em;
+        }
+
+        .title-word {
+            display: inline-block;
+            position: relative;
+            color: var(--deep-black);
+        }
+
+        .title-word:nth-child(1) {
+            animation: wordFloat1 4s ease-in-out infinite;
+        }
+
+        .title-word:nth-child(2) {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: wordFloat2 4s ease-in-out infinite 0.5s;
+        }
+
+        .title-word:nth-child(3) {
+            animation: wordFloat3 4s ease-in-out infinite 1s;
+        }
+
+        @keyframes wordFloat1 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(1deg); }
+        }
+
+        @keyframes wordFloat2 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(-0.5deg); }
+        }
+
+        @keyframes wordFloat3 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-18px) rotate(0.5deg); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--medium-gray);
+            margin-bottom: 4rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+
+        .cta-container {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-primary {
+            background: var(--gradient-primary);
+            color: var(--pure-white);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .cta-secondary {
+            background: var(--pure-white);
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+        }
+
+        .cta-secondary:hover {
+            background: var(--primary-blue);
+            color: var(--pure-white);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 6rem 2rem;
+            background: var(--pure-white);
+            position: relative;
+        }
+
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
+
+        .stat-card {
+            background: var(--soft-white);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0, 102, 204, 0.1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-strong);
+            border-color: var(--accent-cyan);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-number {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            display: block;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+            background: var(--light-gray);
+            position: relative;
+        }
+
+        .features-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--deep-black);
+            position: relative;
+            padding-bottom: 0.2em;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 100px;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            background: var(--pure-white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0, 102, 204, 0.08);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-strong);
+            border-color: var(--accent-cyan);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-primary);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: var(--gradient-accent);
+        }
+
+        .feature-title {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--deep-black);
+        }
+
+        .feature-description {
+            color: var(--medium-gray);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Interactive Timeline */
+        .timeline {
+            padding: 6rem 2rem;
+            background: var(--deep-black);
+            color: var(--pure-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 102, 204, 0.1) 0%, transparent 70%);
+        }
+
+        .timeline-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-title {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--pure-white);
+            position: relative;
+            padding-bottom: 0.2em;
+        }
+
+        .timeline-track {
+            position: relative;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 60px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-progress {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 60px;
+            width: 0%;
+            transition: width 2s ease-in-out;
+            position: relative;
+        }
+
+        .timeline-progress.active {
+            width: 100%;
+        }
+
+        .timeline-items {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .timeline-item {
+            text-align: center;
+            flex: 1;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-15px);
+        }
+
+        .timeline-date {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-event {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .cta-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-items {
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
+
+        /* Scroll animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    
+    <div class="floating-elements">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+    </div>
+
+    <nav class="nav">
+        <div class="nav-content">
+            <img src="vioverse-logo.png" alt="VioVerse" class="logo">
+            <div class="nav-menu">
+                <a href="#" class="nav-item">
+                    Platform
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-item">VioTagger™</a>
+                        <a href="#" class="dropdown-item">VioScore™</a>
+                        <a href="#" class="dropdown-item">VioDeck™</a>
+                        <a href="#" class="dropdown-item">VioView™</a>
+                    </div>
+                </a>
+                <a href="#" class="nav-item">
+                    Intelligence
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-item">Violation Analysis</a>
+                        <a href="#" class="dropdown-item">Evidence Canvas</a>
+                        <a href="#" class="dropdown-item">Legal Intelligence</a>
+                        <a href="#" class="dropdown-item">Impact Assessment</a>
+                    </div>
+                </a>
+                <a href="#" class="nav-item">
+                    Cases
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-item">Active Cases</a>
+                        <a href="#" class="dropdown-item">Case Studies</a>
+                        <a href="#" class="dropdown-item">Success Stories</a>
+                        <a href="#" class="dropdown-item">Legal Precedents</a>
+                    </div>
+                </a>
+                <a href="#" class="nav-item">
+                    Contact
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-item">Schedule Demo</a>
+                        <a href="#" class="dropdown-item">Support</a>
+                        <a href="#" class="dropdown-item">Partnership</a>
+                        <a href="#" class="dropdown-item">Legal Team</a>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Legal Innovation Unleashed</div>
+            <h1 class="hero-title">
+                <span class="title-word">Legal</span><br>
+                <span class="title-word">Intelligence</span><br>
+                <span class="title-word">Revolution</span>
+            </h1>
+            <p class="hero-subtitle">
+                Where FCRA violations meet cutting-edge AI. Transform complex credit disputes into compelling legal victories with immersive evidence visualization and automated litigation intelligence.
+            </p>
+            <div class="cta-container">
+                <a href="#" class="cta-button cta-primary">Experience VioVerse</a>
+                <a href="#" class="cta-button cta-secondary">View Live Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats reveal">
+        <div class="stats-container">
+            <div class="stat-card">
+                <span class="stat-number" data-target="247">0</span>
+                <div class="stat-label">Violations Discovered</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" data-target="13">0</span>
+                <div class="stat-label">Creditors Exposed</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" data-target="85">0</span>
+                <div class="stat-label">Damage Value ($K)</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" data-target="24">0</span>
+                <div class="stat-label">Reports Analyzed</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features reveal">
+        <div class="features-container">
+            <h2 class="section-title">Revolutionary Tools</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">VioTagger™</h3>
+                    <p class="feature-description">AI-powered violation detection with interactive tagging on actual credit report images. Automatically classify FCRA violations with legal precision.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">VioTrigger™</h3>
+                    <p class="feature-description">Timeline intelligence that establishes legal trigger dates and violation baselines. Track systematic reporting patterns across multiple bureaus.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3 class="feature-title">VioScore™</h3>
+                    <p class="feature-description">Quantified harm analysis with damage calculations and credit impact modeling. Turn abstract violations into concrete financial evidence.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">VioDeck™</h3>
+                    <p class="feature-description">Generate professional litigation packages, demand letters, and court-ready documentation with automated legal intelligence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="timeline reveal">
+        <div class="timeline-container">
+            <h2 class="timeline-title">Case Intelligence Timeline</h2>
+            <div class="timeline-track">
+                <div class="timeline-progress" id="timelineProgress"></div>
+            </div>
+            <div class="timeline-items">
+                <div class="timeline-item">
+                    <div class="timeline-date">APR 2024</div>
+                    <div class="timeline-event">Bankruptcy Discharge</div>
+                    <div class="timeline-description">Legal baseline established for violation detection</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">MAY 2024</div>
+                    <div class="timeline-event">Violations Begin</div>
+                    <div class="timeline-description">Systematic misreporting across all bureaus</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">SEP 2024</div>
+                    <div class="timeline-event">Financial Harm</div>
+                    <div class="timeline-description">Mortgage denial • $85K+ damages</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">OCT 2024</div>
+                    <div class="timeline-event">Case Ready</div>
+                    <div class="timeline-description">247 violations • Litigation intelligence complete</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Custom cursor
+        const cursor = document.querySelector('.cursor');
+        const trails = [];
+        
+        for (let i = 0; i < 3; i++) {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            document.body.appendChild(trail);
+            trails.push(trail);
+        }
+
+        let mouseX = 0, mouseY = 0;
+        let trailX = [], trailY = [];
+        
+        for (let i = 0; i < trails.length; i++) {
+            trailX[i] = 0;
+            trailY[i] = 0;
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function updateCursor() {
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+            
+            for (let i = trails.length - 1; i > 0; i--) {
+                trailX[i] = trailX[i - 1];
+                trailY[i] = trailY[i - 1];
+            }
+            
+            trailX[0] = mouseX;
+            trailY[0] = mouseY;
+            
+            trails.forEach((trail, index) => {
+                trail.style.left = trailX[index] + 'px';
+                trail.style.top = trailY[index] + 'px';
+                trail.style.opacity = (trails.length - index) / trails.length * 0.4;
+            });
+            
+            requestAnimationFrame(updateCursor);
+        }
+        
+        updateCursor();
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Animate numbers
+                    if (entry.target.querySelector('[data-target]')) {
+                        animateNumbers(entry.target);
+                    }
+                    
+                    // Timeline progress
+                    if (entry.target.querySelector('#timelineProgress')) {
+                        document.getElementById('timelineProgress').classList.add('active');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Number animation
+        function animateNumbers(container) {
+            const numbers = container.querySelectorAll('[data-target]');
+            numbers.forEach(number => {
+                const target = parseInt(number.dataset.target);
+                const duration = 2000;
+                const start = performance.now();
+                
+                const animate = (current) => {
+                    const elapsed = current - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const value = Math.floor(progress * target);
+                    number.textContent = value;
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    }
+                };
+                
+                requestAnimationFrame(animate);
+            });
+        }
+
+        // Enhanced interactions
+        document.querySelectorAll('.feature-card, .stat-card, .cta-button').forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                this.style.transform = this.style.transform + ' scale(1.02)';
+            });
+            
+            element.addEventListener('mouseleave', function() {
+                this.style.transform = this.style.transform.replace(' scale(1.02)', '');
+            });
+        });
+
+        // Timeline interaction
+        document.querySelectorAll('.timeline-item').forEach((item, index) => {
+            item.addEventListener('click', () => {
+                const progress = ((index + 1) / 4) * 100;
+                document.getElementById('timelineProgress').style.width = progress + '%';
+            });
+        });
+    </script>
+</body>
+</html>

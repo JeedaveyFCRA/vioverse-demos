@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VioVerse™ - Case Review: John Smith vs. Credit Bureaus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Professional Dark Color Palette */
+            --electric-blue: #0080FF;
+            --vibrant-cyan: #00E5FF;
+            --emerald-green: #00FF88;
+            --sunset-orange: #FF6B35;
+            --pure-white: #FFFFFF;
+            --dark-bg: #0A0E1A;
+            --card-bg: #141822;
+            --elevated-bg: #1E2235;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A8B2D1;
+            --text-muted: #6B7785;
+            --border: #2A2F3A;
+            --border-light: #3A4050;
+            
+            /* Status Colors */
+            --high-severity: #FF4757;
+            --medium-severity: #FFA726;
+            --low-severity: #66BB6A;
+            --success: #4CAF50;
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, #0080FF 0%, #00E5FF 100%);
+            --gradient-warm: linear-gradient(135deg, #FF6B35 0%, #FFD700 100%);
+            
+            /* Shadows */
+            --shadow-soft: 0 4px 20px rgba(0, 128, 255, 0.1);
+            --shadow-medium: 0 8px 30px rgba(0, 128, 255, 0.15);
+        }
+
+        /* Light Mode Variables */
+        [data-theme="light"] {
+            --dark-bg: #FFFFFF;
+            --card-bg: #F8F9FA;
+            --elevated-bg: #FFFFFF;
+            --text-primary: #1A202C;
+            --text-secondary: #4A5568;
+            --text-muted: #718096;
+            --border: #E2E8F0;
+            --border-light: #CBD5E0;
+            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #4D9FFF;
+            text-transform: lowercase;
+            padding: 0.6rem 2.5rem;
+            background: rgba(0, 128, 255, 0.1);
+            border: 2px solid var(--electric-blue);
+            border-radius: 48px;
+            box-shadow: 0 0 20px rgba(0, 128, 255, 0.3);
+        }
+
+        .case-info {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .export-actions {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            width: 50px;
+            height: 26px;
+            background: var(--border);
+            border: none;
+            border-radius: 26px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 1rem;
+        }
+
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 22px;
+            height: 22px;
+            background: var(--text-primary);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .theme-toggle.dark::before {
+            transform: translateX(24px);
+        }
+
+        .theme-toggle:hover {
+            background: var(--electric-blue);
+        }
+
+        .theme-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-icon.sun {
+            left: 6px;
+            opacity: 1;
+        }
+
+        .theme-icon.moon {
+            right: 6px;
+            opacity: 0;
+        }
+
+        .theme-toggle.dark .theme-icon.sun {
+            opacity: 0;
+        }
+
+        .theme-toggle.dark .theme-icon.moon {
+            opacity: 1;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 48px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--pure-white);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Navigation Arrows */
+        .nav-arrows {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-arrow {
+            width: 40px;
+            height: 40px;
+            background: var(--elevated-bg);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-secondary);
+        }
+
+        .nav-arrow:hover {
+            background: var(--vibrant-cyan);
+            color: var(--dark-bg);
+            transform: scale(1.1);
+        }
+
+        .nav-arrow:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .report-info {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Breadcrumb Navigation */
+        .breadcrumb {
+            background: var(--elevated-bg);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .breadcrumb-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .breadcrumb-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .breadcrumb-item {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb-item:hover {
+            color: var(--vibrant-cyan);
+        }
+
+        .breadcrumb-item.active {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-muted);
+        }
+
+        /* Main Layout */
+        .main-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .filter-group {
+            margin-bottom: 2rem;
+        }
+
+        .filter-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .filter-select, .filter-input {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--elevated-bg);
+            border: 1px solid var(--border);
+            border-radius: 48px;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+        }
+
+        .filter-select:focus, .filter-input:focus {
+            outline: none;
+            border-color: var(--vibrant-cyan);
+            box-shadow: 0 0 0 2px rgba(0, 229, 255, 0.2);
+        }
+
+        .quick-stats {
+            background: var(--elevated-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .quick-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .quick-stat:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Main Content */
+        .content-area {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .content-header {
+            padding: 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .view-toggle {
+            display: flex;
+            background: var(--elevated-bg);
+            border-radius: 8px;
+            padding: 0.25rem;
+        }
+
+        .toggle-btn {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 48px;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            margin: 0 0.25rem;
+        }
+
+        .toggle-btn.active {
+            background: var(--vibrant-cyan);
+            color: var(--dark-bg);
+        }
+
+        /* Case Overview Cards */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+
+        .overview-card {
+            background: var(--elevated-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .overview-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .overview-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--vibrant-cyan);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .overview-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Violation Table */
+        .violation-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .violation-table th {
+            background: var(--elevated-bg);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .violation-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.875rem;
+        }
+
+        .violation-table tr:hover {
+            background: var(--elevated-bg);
+        }
+
+        .severity-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .severity-high {
+            background: rgba(255, 71, 87, 0.2);
+            color: var(--high-severity);
+        }
+
+        .severity-medium {
+            background: rgba(255, 167, 38, 0.2);
+            color: var(--medium-severity);
+        }
+
+        .severity-low {
+            background: rgba(102, 187, 106, 0.2);
+            color: var(--low-severity);
+        }
+
+        .fcra-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--vibrant-cyan);
+            background: rgba(0, 229, 255, 0.1);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        /* Action Bar */
+        .action-bar {
+            padding: 1.5rem 2rem;
+            background: var(--elevated-bg);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .selected-count {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        /* Evidence Panel */
+        .evidence-panel {
+            background: var(--elevated-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .evidence-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .evidence-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .evidence-item:hover {
+            border-color: var(--vibrant-cyan);
+            box-shadow: 0 4px 12px rgba(0, 229, 255, 0.1);
+        }
+
+        .evidence-type {
+            font-size: 0.75rem;
+            color: var(--emerald-green);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .evidence-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Mobile Table Styles */
+        .mobile-violation-card {
+            display: none;
+            background: var(--elevated-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--vibrant-cyan);
+        }
+
+        .mobile-violation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .mobile-violation-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1rem;
+            flex: 1;
+            margin-right: 1rem;
+        }
+
+        .mobile-violation-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+        }
+
+        .mobile-detail {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-detail-label {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .mobile-detail-value {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Touch-friendly buttons */
+        .touch-btn {
+            min-height: 44px;
+            min-width: 44px;
+            padding: 0.75rem 1.5rem;
+        }
+
+        /* Collapsible Sidebar */
+        .sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: var(--vibrant-cyan);
+            border: none;
+            border-radius: 50%;
+            color: var(--dark-bg);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 200;
+            box-shadow: 0 4px 20px rgba(0, 229, 255, 0.3);
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 150;
+        }
+
+        .sidebar.mobile-open {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 320px;
+            z-index: 300;
+            overflow-y: auto;
+        }
+
+        /* Responsive - Large Tablets */
+        @media (max-width: 1200px) {
+            .main-container {
+                grid-template-columns: 280px 1fr;
+                gap: 1.5rem;
+            }
+            
+            .sidebar {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Responsive - Tablets */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .sidebar {
+                position: relative;
+                top: auto;
+                order: -1;
+                background: var(--elevated-bg);
+                border-radius: 12px;
+                padding: 1.5rem;
+            }
+
+            .overview-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+                padding: 1.5rem;
+            }
+            
+            .nav-content {
+                padding: 0 1rem;
+            }
+            
+            .logo {
+                font-size: 1.6rem;
+                padding: 0.5rem 2rem;
+            }
+            
+            .case-info {
+                font-size: 0.8rem;
+            }
+            
+            .nav-arrows {
+                gap: 0.75rem;
+            }
+            
+            .nav-arrow {
+                width: 36px;
+                height: 36px;
+            }
+        }
+
+        /* Responsive - Mobile */
+        @media (max-width: 768px) {
+            .nav-content {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .case-info {
+                text-align: center;
+                order: -1;
+            }
+            
+            .export-actions {
+                order: 1;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .breadcrumb-content {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .breadcrumb-left {
+                order: 1;
+            }
+            
+            .nav-arrows {
+                order: -1;
+            }
+
+            .overview-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .overview-card {
+                padding: 1.5rem 1rem;
+            }
+            
+            .overview-number {
+                font-size: 2rem;
+            }
+
+            .evidence-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-bar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .action-buttons {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .btn {
+                flex: 1;
+                min-width: 120px;
+            }
+            
+            /* Show mobile cards, hide table */
+            .violation-table {
+                display: none;
+            }
+            
+            .mobile-violation-card {
+                display: block;
+            }
+            
+            /* Mobile sidebar */
+            .sidebar {
+                display: none;
+            }
+            
+            .sidebar-toggle {
+                display: block;
+            }
+            
+            .content-header {
+                padding: 1.5rem 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .content-title {
+                font-size: 1.25rem;
+            }
+            
+            .filter-group {
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* Responsive - Small Mobile */
+        @media (max-width: 480px) {
+            .overview-grid {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .logo {
+                font-size: 1.4rem;
+                padding: 0.5rem 1.5rem;
+            }
+            
+            .nav-arrow {
+                width: 32px;
+                height: 32px;
+                font-size: 0.9rem;
+            }
+            
+            .report-info {
+                font-size: 0.8rem;
+            }
+            
+            .mobile-violation-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                margin: 0.25rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="logo">vioverse</div>
+            <div class="case-info">Case: John Smith vs. Credit Bureaus</div>
+            <div class="export-actions">
+                <a href="#" class="btn btn-secondary">Export Selected</a>
+                <a href="#" class="btn btn-primary">Generate Report</a>
+                <button class="theme-toggle dark" id="themeToggle" title="Toggle Light/Dark Mode">
+                    <span class="theme-icon sun">☀️</span>
+                    <span class="theme-icon moon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="breadcrumb">
+        <div class="breadcrumb-content">
+            <div class="breadcrumb-left">
+                <a href="#" class="breadcrumb-item">Case Overview</a>
+                <span class="breadcrumb-separator">→</span>
+                <a href="#" class="breadcrumb-item">Violation Analysis</a>
+                <span class="breadcrumb-separator">→</span>
+                <span class="breadcrumb-item active">AL-EQ-2024-04-25-P57</span>
+            </div>
+            <div class="nav-arrows">
+                <button class="nav-arrow" id="prevReport" title="Previous Report">←</button>
+                <div class="report-info">Report 1 of 24</div>
+                <button class="nav-arrow" id="nextReport" title="Next Report">→</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <h3 class="sidebar-title">Filter Violations</h3>
+            
+            <div class="filter-group">
+                <label class="filter-label">Creditor</label>
+                <select class="filter-select">
+                    <option>All Creditors</option>
+                    <option>Ally Financial (23 violations)</option>
+                    <option>Chase Bank (18 violations)</option>
+                    <option>Wells Fargo (15 violations)</option>
+                    <option>Mariner Finance (19 violations)</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Bureau</label>
+                <select class="filter-select">
+                    <option>All Bureaus</option>
+                    <option>Equifax (89 violations)</option>
+                    <option>Experian (78 violations)</option>
+                    <option>TransUnion (80 violations)</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Severity</label>
+                <select class="filter-select">
+                    <option>All Severities</option>
+                    <option>High Severity (45)</option>
+                    <option>Medium Severity (122)</option>
+                    <option>Low Severity (80)</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Date Range</label>
+                <input type="date" class="filter-input" value="2024-04-25">
+            </div>
+
+            <div class="quick-stats">
+                <div class="quick-stat">
+                    <span class="stat-label">Total Violations</span>
+                    <span class="stat-value">247</span>
+                </div>
+                <div class="quick-stat">
+                    <span class="stat-label">Creditors</span>
+                    <span class="stat-value">13</span>
+                </div>
+                <div class="quick-stat">
+                    <span class="stat-label">Est. Damages</span>
+                    <span class="stat-value">$85K+</span>
+                </div>
+                <div class="quick-stat">
+                    <span class="stat-label">Duration</span>
+                    <span class="stat-value">18 Mo.</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <div class="content-header">
+                <h1 class="content-title">Violation Analysis</h1>
+                <div class="view-toggle">
+                    <button class="toggle-btn active">List View</button>
+                    <button class="toggle-btn">Report View</button>
+                </div>
+            </div>
+
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <span class="overview-number" data-target="247">0</span>
+                    <div class="overview-label">Total Violations</div>
+                </div>
+                <div class="overview-card">
+                    <span class="overview-number" data-target="13">0</span>
+                    <div class="overview-label">Creditors</div>
+                </div>
+                <div class="overview-card">
+                    <span class="overview-number" data-target="85">0</span>
+                    <div class="overview-label">Est. Damages ($K)</div>
+                </div>
+                <div class="overview-card">
+                    <span class="overview-number" data-target="18">0</span>
+                    <div class="overview-label">Months</div>
+                </div>
+            </div>
+
+            <table class="violation-table">
+                <thead>
+                    <tr>
+                        <th>Violation</th>
+                        <th>Creditor</th>
+                        <th>Bureau</th>
+                        <th>Report Date</th>
+                        <th>Severity</th>
+                        <th>FCRA Code</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Bankruptcy still reporting post-discharge</td>
+                        <td>Ally Financial</td>
+                        <td>Equifax</td>
+                        <td>2024-04-25</td>
+                        <td><span class="severity-badge severity-high">High</span></td>
+                        <td><span class="fcra-code">§1681e(b)</span></td>
+                    </tr>
+                    <tr>
+                        <td>Incorrect balance amount</td>
+                        <td>Chase Bank</td>
+                        <td>Experian</td>
+                        <td>2024-04-25</td>
+                        <td><span class="severity-badge severity-medium">Medium</span></td>
+                        <td><span class="fcra-code">§1681e(b)</span></td>
+                    </tr>
+                    <tr>
+                        <td>Account status misreported</td>
+                        <td>Wells Fargo</td>
+                        <td>TransUnion</td>
+                        <td>2024-04-25</td>
+                        <td><span class="severity-badge severity-high">High</span></td>
+                        <td><span class="fcra-code">§1681s-2(b)</span></td>
+                    </tr>
+                    <tr>
+                        <td>Frozen tradeline still updating</td>
+                        <td>Mariner Finance</td>
+                        <td>Equifax</td>
+                        <td>2024-04-25</td>
+                        <td><span class="severity-badge severity-high">High</span></td>
+                        <td><span class="fcra-code">§1681e(b)</span></td>
+                    </tr>
+                    <tr>
+                        <td>Payment history inaccurate</td>
+                        <td>Discover</td>
+                        <td>Experian</td>
+                        <td>2024-04-25</td>
+                        <td><span class="severity-badge severity-medium">Medium</span></td>
+                        <td><span class="fcra-code">§1681e(b)</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <!-- Mobile Card View -->
+            <div class="mobile-violation-card">
+                <div class="mobile-violation-header">
+                    <div class="mobile-violation-title">Bankruptcy still reporting post-discharge</div>
+                    <span class="severity-badge severity-high">High</span>
+                </div>
+                <div class="mobile-violation-details">
+                    <div class="mobile-detail">
+                        <div class="mobile-detail-label">Creditor</div>
+                        <div class="mobile-detail-value">Ally Financial</div>
+                    </div>
+                    <div class="mobile-detail">
+                        <div class="mobile-detail-label">Bureau</div>
+                        <div class="mobile-detail-value">Equifax</div>
+                    </div>
+                    <div class="mobile-detail">
+                        <div class="mobile-detail-label">Date</div>
+                        <div class="mobile-detail-value">2024-04-25</div>
+                    </div>
+                    <div class="mobile-detail">
+                        <div class="mobile-detail-label">FCRA Code</div>
+                        <div class="mobile-detail-value"><span class="fcra-code">§1681e(b)</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mobile-violation-card">
+                <div class="mobile-violation-header">
+                    <div class="mobile-violation-title">Incorrect balance amount</div>
+                    <span class="severity-badge severity-medium">Medium</span>
+                </div>
+                <div class="mobile-violation-details">
+                    <div class="mobile-detail">
+                        <div class="mobile-detail-label">Creditor</div>
+                        <div class="mobile-detail-value">Chase Bank</div>
+                    </div>
+                    <div class="mobile-detail">
+                        <div class="mobile-detail-label">Bureau</div>
+                        <div class="mobile-detail-value">Experian</div>
+                    </div>
+                    <div class="mobile-detail">
+                        <div class="mobile-detail-label">Date</div>
+                        <div class="mobile-detail-value">2024-04-25</div>
+                    </div>
+                    <div class="mobile-detail">
+                        <div class="mobile-detail-label">FCRA Code</div>
+                        <div class="mobile-detail-value"><span class="fcra-code">§1681e(b)</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mobile-violation-card">
+                <div class="mobile-violation-header">
+                    <div class="mobile-violation-title">Account status misreported</div>
+                    <span class="severity-badge severity-high">High</span>
+                </div>
+                <div class="mobile-violation-details">
+                    <div class="mobile-detail">
+                        <div class="mobile-detail-label">Creditor</div>
+                        <div class="mobile-detail-value">Wells Fargo</div>
+                    </div>
+                    <div class="mobile-detail">
+                        <div class="mobile-detail-label">Bureau</div>
+                        <div class="mobile-detail-value">TransUnion</div>
+                    </div>
+                    <div class="mobile-detail">
+                        <div class="mobile-detail-label">Date</div>
+                        <div class="mobile-detail-value">2024-04-25</div>
+                    </div>
+                    <div class="mobile-detail">
+                        <div class="mobile-detail-label">FCRA Code</div>
+                        <div class="mobile-detail-value"><span class="fcra-code">§1681s-2(b)</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mobile-violation-card">
+                <div class="mobile-violation-header">
+                    <div class="mobile-violation-title">Frozen tradeline still updating</div>
+                    <span class="severity-badge severity-high">High</span>
+                </div>
+                <div class="mobile-violation-details">
+                    <div class="mobile-detail">
+                        <div class="mobile-detail-label">Creditor</div>
+                        <div class="mobile-detail-value">Mariner Finance</div>
+                    </div>
+                    <div class="mobile-detail">
+                        <div class="mobile-detail-label">Bureau</div>
+                        <div class="mobile-detail-value">Equifax</div>
+                    </div>
+                    <div class="mobile-detail">
+                        <div class="mobile-detail-label">Date</div>
+                        <div class="mobile-detail-value">2024-04-25</div>
+                    </div>
+                    <div class="mobile-detail">
+                        <div class="mobile-detail-label">FCRA Code</div>
+                        <div class="mobile-detail-value"><span class="fcra-code">§1681e(b)</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mobile-violation-card">
+                <div class="mobile-violation-header">
+                    <div class="mobile-violation-title">Payment history inaccurate</div>
+                    <span class="severity-badge severity-medium">Medium</span>
+                </div>
+                <div class="mobile-violation-details">
+                    <div class="mobile-detail">
+                        <div class="mobile-detail-label">Creditor</div>
+                        <div class="mobile-detail-value">Discover</div>
+                    </div>
+                    <div class="mobile-detail">
+                        <div class="mobile-detail-label">Bureau</div>
+                        <div class="mobile-detail-value">Experian</div>
+                    </div>
+                    <div class="mobile-detail">
+                        <div class="mobile-detail-label">Date</div>
+                        <div class="mobile-detail-value">2024-04-25</div>
+                    </div>
+                    <div class="mobile-detail">
+                        <div class="mobile-detail-label">FCRA Code</div>
+                        <div class="mobile-detail-value"><span class="fcra-code">§1681e(b)</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-bar">
+                <div class="selected-count">5 violations selected</div>
+                <div class="action-buttons">
+                    <button class="btn btn-secondary">Export Selected</button>
+                    <button class="btn btn-primary">Generate Report</button>
+                    <button class="btn btn-primary">Create Demand Letter</button>
+                </div>
+            </div>
+
+            <div class="evidence-panel">
+                <h3 class="evidence-title">Related Evidence</h3>
+                <div class="evidence-grid">
+                    <div class="evidence-item">
+                        <div class="evidence-type">Timeline Triggers</div>
+                        <div class="evidence-name">Bankruptcy Discharge Letters</div>
+                    </div>
+                    <div class="evidence-item">
+                        <div class="evidence-type">Denial Letters</div>
+                        <div class="evidence-name">Mortgage Refinance Denial</div>
+                    </div>
+                    <div class="evidence-item">
+                        <div class="evidence-type">Financial Impact</div>
+                        <div class="evidence-name">Credit Score Analysis</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Mobile Sidebar Toggle -->
+    <button class="sidebar-toggle" id="sidebarToggle">⚙️</button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <script>
+        // Live counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('[data-target]');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.dataset.target);
+                const duration = 2000;
+                const start = performance.now();
+                
+                const animate = (current) => {
+                    const elapsed = current - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const value = Math.floor(progress * target);
+                    
+                    if (counter.dataset.target === '85') {
+                        counter.textContent = '$' + value + 'K+';
+                    } else {
+                        counter.textContent = value;
+                    }
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    }
+                };
+                
+                requestAnimationFrame(animate);
+            });
+        }
+
+        // Report navigation
+        let currentReport = 1;
+        const totalReports = 24;
+        
+        const reports = [
+            'AL-EQ-2024-04-25-P57',
+            'AL-EQ-2024-04-25-P58', 
+            'AL-EX-2024-04-25-P05',
+            'AL-TU-2024-04-25-P07',
+            'BB-EQ-2024-04-25-P20',
+            'BB-EX-2024-04-25-P08',
+            'BB-EX-2024-04-25-P09',
+            'BB-TU-2024-04-25-P14',
+            'BK-EQ-2024-04-25-P16',
+            'BK-EQ-2024-04-25-P17',
+            'BK-EX-2024-04-25-P06',
+            'BK-TU-2024-04-25-P10',
+            'BY-EQ-2024-04-25-P34',
+            'BY-EQ-2024-04-25-P35',
+            'BY-EX-2024-04-25-P07',
+            'BY-TU-2024-04-25-P12',
+            'C1-EQ-2024-04-25-P26',
+            'C1-EX-2024-04-25-P11',
+            'C1-TU-2024-04-25-P17',
+            'C2-EQ-2024-04-25-P28',
+            'C2-EX-2024-04-25-P12',
+            'C2-TU-2024-04-25-P20',
+            'CR-EQ-2024-04-25-P18',
+            'CR-EQ-2024-04-25-P19'
+        ];
+        
+        function updateReportNavigation() {
+            document.querySelector('.breadcrumb-item.active').textContent = reports[currentReport - 1];
+            document.querySelector('.report-info').textContent = `Report ${currentReport} of ${totalReports}`;
+            
+            document.getElementById('prevReport').disabled = currentReport === 1;
+            document.getElementById('nextReport').disabled = currentReport === totalReports;
+        }
+        
+        document.getElementById('prevReport').addEventListener('click', function() {
+            if (currentReport > 1) {
+                currentReport--;
+                updateReportNavigation();
+                // Here you would load the previous report data
+                console.log('Loading report:', reports[currentReport - 1]);
+            }
+        });
+        
+        document.getElementById('nextReport').addEventListener('click', function() {
+            if (currentReport < totalReports) {
+                currentReport++;
+                updateReportNavigation();
+                // Here you would load the next report data
+                console.log('Loading report:', reports[currentReport - 1]);
+            }
+        });
+
+        // Toggle between list and report view
+        document.querySelectorAll('.toggle-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Filter functionality
+        document.querySelectorAll('.filter-select, .filter-input').forEach(filter => {
+            filter.addEventListener('change', function() {
+                // Filter table rows based on selection
+                console.log('Filter applied:', this.value);
+            });
+        });
+
+        // Row selection
+        document.querySelectorAll('.violation-table tr').forEach(row => {
+            row.addEventListener('click', function() {
+                this.classList.toggle('selected');
+                updateSelectedCount();
+            });
+        });
+
+        function updateSelectedCount() {
+            const selected = document.querySelectorAll('.violation-table tr.selected').length;
+            document.querySelector('.selected-count').textContent = `${selected} violations selected`;
+        }
+
+        // Evidence item clicks
+        document.querySelectorAll('.evidence-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const evidenceType = this.querySelector('.evidence-type').textContent;
+                const evidenceName = this.querySelector('.evidence-name').textContent;
+                console.log('Evidence clicked:', evidenceType, evidenceName);
+                // Navigate to evidence detail view
+            });
+        });
+
+        // Mobile sidebar toggle
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.querySelector('.sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        
+        function toggleSidebar() {
+            sidebar.classList.toggle('mobile-open');
+            sidebarOverlay.style.display = sidebar.classList.contains('mobile-open') ? 'block' : 'none';
+        }
+        
+        sidebarToggle.addEventListener('click', toggleSidebar);
+        sidebarOverlay.addEventListener('click', toggleSidebar);
+        
+        // Close sidebar on window resize if open
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768 && sidebar.classList.contains('mobile-open')) {
+                toggleSidebar();
+            }
+        });
+        
+        // Touch-friendly interactions
+        document.querySelectorAll('.mobile-violation-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+                // Add selection logic here
+            });
+        });
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        
+        // Check for saved theme or default to dark
+        const savedTheme = localStorage.getItem('vioverse-theme') || 'dark';
+        html.setAttribute('data-theme', savedTheme);
+        updateThemeToggle(savedTheme);
+        
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('vioverse-theme', newTheme);
+            updateThemeToggle(newTheme);
+        });
+        
+        function updateThemeToggle(theme) {
+            if (theme === 'dark') {
+                themeToggle.classList.add('dark');
+            } else {
+                themeToggle.classList.remove('dark');
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            animateCounters();
+            updateReportNavigation();
+        });
+    </script>
+</body>
+</html>

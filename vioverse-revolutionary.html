@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VioVerse™ - Where Justice Meets Innovation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --electric-blue: #00D4FF;
+            --neon-green: #39FF14;
+            --hot-pink: #FF1493;
+            --cyber-yellow: #FFFF00;
+            --pure-white: #FFFFFF;
+            --deep-black: #000000;
+            --soft-gray: #F8F9FA;
+            --medium-gray: #6C757D;
+            --gradient-1: linear-gradient(135deg, #00D4FF 0%, #39FF14 100%);
+            --gradient-2: linear-gradient(135deg, #FF1493 0%, #FFFF00 100%);
+            --gradient-3: linear-gradient(135deg, #39FF14 0%, #00D4FF 100%);
+            --shadow-glow: 0 0 50px rgba(0, 212, 255, 0.3);
+            --shadow-pink: 0 0 30px rgba(255, 20, 147, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--pure-white);
+            color: var(--deep-black);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--hot-pink);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.7;
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape-1 {
+            top: 10%;
+            left: 20%;
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            top: 60%;
+            right: 10%;
+            width: 150px;
+            height: 150px;
+            background: var(--gradient-2);
+            transform: rotate(45deg);
+            animation-delay: -5s;
+        }
+
+        .shape-3 {
+            bottom: 20%;
+            left: 60%;
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-3);
+            border-radius: 30%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            25% { transform: translate(-100px, -50px) rotate(90deg) scale(1.2); }
+            50% { transform: translate(80px, -100px) rotate(180deg) scale(0.8); }
+            75% { transform: translate(-50px, 50px) rotate(270deg) scale(1.1); }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 3px solid transparent;
+            background-image: linear-gradient(white, white), var(--gradient-1);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5)); }
+            50% { filter: drop-shadow(0 0 20px rgba(57, 255, 20, 0.7)); }
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-item {
+            font-weight: 500;
+            color: var(--deep-black);
+            text-decoration: none;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--gradient-2);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-item:hover::before {
+            width: 100%;
+        }
+
+        .nav-item:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: var(--pure-white);
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 1200px;
+            padding: 0 2rem;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--pure-white);
+            border: 3px solid transparent;
+            background-image: linear-gradient(white, white), var(--gradient-3);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            border-radius: 50px;
+            font-weight: 600;
+            color: var(--deep-black);
+            margin-bottom: 3rem;
+            animation: badgeBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes badgeBounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-title {
+            font-family: 'Clash Display', sans-serif;
+            font-size: clamp(4rem, 12vw, 8rem);
+            font-weight: 700;
+            line-height: 0.9;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .title-word {
+            display: inline-block;
+            position: relative;
+        }
+
+        .title-word:nth-child(1) {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: wordFloat1 4s ease-in-out infinite;
+        }
+
+        .title-word:nth-child(2) {
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: wordFloat2 4s ease-in-out infinite 0.5s;
+        }
+
+        .title-word:nth-child(3) {
+            background: var(--gradient-3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: wordFloat3 4s ease-in-out infinite 1s;
+        }
+
+        @keyframes wordFloat1 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        @keyframes wordFloat2 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(-1deg); }
+        }
+
+        @keyframes wordFloat3 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(1deg); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--medium-gray);
+            margin-bottom: 4rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.4;
+        }
+
+        .cta-container {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            padding: 1.5rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-primary {
+            background: var(--gradient-1);
+            color: var(--pure-white);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 50px rgba(0, 212, 255, 0.5);
+        }
+
+        .cta-secondary {
+            background: var(--pure-white);
+            color: var(--deep-black);
+            border: 3px solid transparent;
+            background-image: linear-gradient(white, white), var(--gradient-2);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+        }
+
+        .cta-secondary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: var(--shadow-pink);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 8rem 2rem;
+            background: var(--soft-gray);
+            position: relative;
+        }
+
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+        }
+
+        .stat-card {
+            background: var(--pure-white);
+            padding: 4rem 2rem;
+            border-radius: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 3px solid transparent;
+            background-image: linear-gradient(white, white), var(--gradient-1);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-20px) rotate(2deg);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(var(--electric-blue), var(--neon-green), var(--hot-pink), var(--cyber-yellow), var(--electric-blue));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: rotate 4s linear infinite;
+        }
+
+        .stat-card:hover::before {
+            opacity: 0.1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .stat-number {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: var(--deep-black);
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 2rem;
+            background: var(--pure-white);
+            position: relative;
+        }
+
+        .features-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 6rem;
+            background: var(--gradient-3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+        }
+
+        .feature-card {
+            background: var(--soft-gray);
+            padding: 3rem;
+            border-radius: 40px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+
+        .feature-card:hover {
+            transform: scale(1.05) rotate(-2deg);
+            background: var(--pure-white);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            background: var(--gradient-2);
+            transform: rotate(360deg) scale(1.2);
+        }
+
+        .feature-title {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--deep-black);
+        }
+
+        .feature-description {
+            color: var(--medium-gray);
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        /* Interactive Timeline */
+        .timeline {
+            padding: 8rem 2rem;
+            background: var(--deep-black);
+            color: var(--pure-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .timeline-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-title {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 6rem;
+            color: var(--pure-white);
+        }
+
+        .timeline-track {
+            position: relative;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            overflow: hidden;
+            margin-bottom: 4rem;
+        }
+
+        .timeline-progress {
+            height: 100%;
+            background: var(--gradient-1);
+            border-radius: 100px;
+            width: 0%;
+            transition: width 2s ease-in-out;
+            position: relative;
+        }
+
+        .timeline-progress.active {
+            width: 100%;
+        }
+
+        .timeline-items {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .timeline-item {
+            text-align: center;
+            flex: 1;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-20px);
+        }
+
+        .timeline-date {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--electric-blue);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-event {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .cta-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-items {
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
+
+        /* Scroll animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    
+    <div class="floating-elements">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+    </div>
+
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="logo">VioVerse™</div>
+            <div class="nav-menu">
+                <a href="#" class="nav-item">Platform</a>
+                <a href="#" class="nav-item">Intelligence</a>
+                <a href="#" class="nav-item">Cases</a>
+                <a href="#" class="nav-item">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🚀 Legal Innovation Unleashed</div>
+            <h1 class="hero-title">
+                <span class="title-word">Legal</span><br>
+                <span class="title-word">Intelligence</span><br>
+                <span class="title-word">Revolution</span>
+            </h1>
+            <p class="hero-subtitle">
+                Where FCRA violations meet cutting-edge AI. Transform complex credit disputes into compelling legal victories with immersive evidence visualization and automated litigation intelligence.
+            </p>
+            <div class="cta-container">
+                <a href="#" class="cta-button cta-primary">Experience VioVerse</a>
+                <a href="#" class="cta-button cta-secondary">View Live Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats reveal">
+        <div class="stats-container">
+            <div class="stat-card">
+                <span class="stat-number" data-target="247">0</span>
+                <div class="stat-label">Violations Discovered</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" data-target="13">0</span>
+                <div class="stat-label">Creditors Exposed</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" data-target="85">0</span>
+                <div class="stat-label">Damage Value ($K)</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" data-target="24">0</span>
+                <div class="stat-label">Reports Analyzed</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features reveal">
+        <div class="features-container">
+            <h2 class="section-title">Revolutionary Tools</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">VioTagger™</h3>
+                    <p class="feature-description">AI-powered violation detection with interactive tagging on actual credit report images. Automatically classify FCRA violations with legal precision.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">VioTrigger™</h3>
+                    <p class="feature-description">Timeline intelligence that establishes legal trigger dates and violation baselines. Track systematic reporting patterns across multiple bureaus.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3 class="feature-title">VioScore™</h3>
+                    <p class="feature-description">Quantified harm analysis with damage calculations and credit impact modeling. Turn abstract violations into concrete financial evidence.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">VioDeck™</h3>
+                    <p class="feature-description">Generate professional litigation packages, demand letters, and court-ready documentation with automated legal intelligence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="timeline reveal">
+        <div class="timeline-container">
+            <h2 class="timeline-title">Case Intelligence Timeline</h2>
+            <div class="timeline-track">
+                <div class="timeline-progress" id="timelineProgress"></div>
+            </div>
+            <div class="timeline-items">
+                <div class="timeline-item">
+                    <div class="timeline-date">APR 2024</div>
+                    <div class="timeline-event">Bankruptcy Discharge</div>
+                    <div class="timeline-description">Legal baseline established for violation detection</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">MAY 2024</div>
+                    <div class="timeline-event">Violations Begin</div>
+                    <div class="timeline-description">Systematic misreporting across all bureaus</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">SEP 2024</div>
+                    <div class="timeline-event">Financial Harm</div>
+                    <div class="timeline-description">Mortgage denial • $85K+ damages</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">OCT 2024</div>
+                    <div class="timeline-event">Case Ready</div>
+                    <div class="timeline-description">247 violations • Litigation intelligence complete</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Custom cursor
+        const cursor = document.querySelector('.cursor');
+        const trails = [];
+        
+        for (let i = 0; i < 5; i++) {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            document.body.appendChild(trail);
+            trails.push(trail);
+        }
+
+        let mouseX = 0, mouseY = 0;
+        let trailX = [], trailY = [];
+        
+        for (let i = 0; i < trails.length; i++) {
+            trailX[i] = 0;
+            trailY[i] = 0;
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function updateCursor() {
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+            
+            for (let i = trails.length - 1; i > 0; i--) {
+                trailX[i] = trailX[i - 1];
+                trailY[i] = trailY[i - 1];
+            }
+            
+            trailX[0] = mouseX;
+            trailY[0] = mouseY;
+            
+            trails.forEach((trail, index) => {
+                trail.style.left = trailX[index] + 'px';
+                trail.style.top = trailY[index] + 'px';
+                trail.style.opacity = (trails.length - index) / trails.length * 0.7;
+            });
+            
+            requestAnimationFrame(updateCursor);
+        }
+        
+        updateCursor();
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Animate numbers
+                    if (entry.target.querySelector('[data-target]')) {
+                        animateNumbers(entry.target);
+                    }
+                    
+                    // Timeline progress
+                    if (entry.target.querySelector('#timelineProgress')) {
+                        document.getElementById('timelineProgress').classList.add('active');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Number animation
+        function animateNumbers(container) {
+            const numbers = container.querySelectorAll('[data-target]');
+            numbers.forEach(number => {
+                const target = parseInt(number.dataset.target);
+                const duration = 2000;
+                const start = performance.now();
+                
+                const animate = (current) => {
+                    const elapsed = current - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const value = Math.floor(progress * target);
+                    number.textContent = value;
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    }
+                };
+                
+                requestAnimationFrame(animate);
+            });
+        }
+
+        // Enhanced interactions
+        document.querySelectorAll('.feature-card, .stat-card, .cta-button').forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                this.style.transform = this.style.transform + ' scale(1.05)';
+            });
+            
+            element.addEventListener('mouseleave', function() {
+                this.style.transform = this.style.transform.replace(' scale(1.05)', '');
+            });
+        });
+
+        // Timeline interaction
+        document.querySelectorAll('.timeline-item').forEach((item, index) => {
+            item.addEventListener('click', () => {
+                const progress = ((index + 1) / 4) * 100;
+                document.getElementById('timelineProgress').style.width = progress + '%';
+            });
+        });
+    </script>
+</body>
+</html>
